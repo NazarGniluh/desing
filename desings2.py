@@ -8,8 +8,8 @@ window = QWidget()
 
 window.resize(800, 500)
 mainLine = QHBoxLayout()
-Mon = QVBoxLayout()
-Mon1 = QVBoxLayout()
+
+
 Non = QHBoxLayout()
 
 windows1 = QLabel("ПАПКА")
@@ -27,7 +27,20 @@ mono4 = QPushButton("РІДНИЙ")
 mono5 = QPushButton("КОЛЄГА")
 mono6 = QPushButton("БАТЬКІВЩИНА")
 
+text = QTextEdit()
 kom = QLineEdit()
+
+Mon = QVBoxLayout()
+Mon.addWidget(mono1)
+Mon.addWidget(text)
+
+mainLine.addLayout(Mon)
+
+
+
+Mon1 = QVBoxLayout()
+mainLine.addLayout(Mon1)
+
 
 window.setLayout(mainLine)
 
