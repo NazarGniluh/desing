@@ -18,6 +18,7 @@ windows3 = QLabel("НОМЕР")
 windows4 = QLabel("РІДНИЙ")
 windows5 = QLabel("КОЛЄГА")
 windows6 = QLabel("БАТЬКІВЩИНА")
+windows7 = QLabel("НОМЕРОГРАМ")
 
 
 mono1 = QPushButton("ПАПКА")
@@ -28,7 +29,7 @@ mono5 = QPushButton("КОЛЄГА")
 mono6 = QPushButton("БАТЬКІВЩИНА")
 
 text = QTextEdit()
-kom = QLineEdit()
+
 
 Mon = QVBoxLayout()
 Mon.addWidget(mono1)
@@ -37,9 +38,20 @@ Mon.addWidget(text)
 mainLine.addLayout(Mon)
 
 
-
 Mon1 = QVBoxLayout()
+Mon1.addWidget(windows7)
+Non = QHBoxLayout()
+Non.addWidget(mono2)
+Non.addWidget(mono3)
+Non.addWidget(mono4)
+Non.addWidget(mono5)
+Non.addWidget(mono6)
+
+Mon1.addLayout(Non)
+
 mainLine.addLayout(Mon1)
+
+
 
 
 window.setLayout(mainLine)
