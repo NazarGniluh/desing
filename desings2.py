@@ -8,21 +8,25 @@ app.setStyleSheet(
     QPushButton:hover {
         background-color:white;
     }
-            QWidget {
-                background:  #FFEF00;
-            }
+        QWidget {
+            background:rgb(255, 255, 128);
+        }
+        
+        QPushButton
+        {
+            background-color:rgba(255, 255, 128, .5);
             
-            QPushButton
-            {
-                background: #ECDF25;
-                font-size: 15px;
-                color: black;
-                border-style: solid;
-                border-width: 1px;
-                border-color: black;
-                border-radius: 5px;
-                
-            }
+            font-size: 15px;
+            color: black;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            border-radius: 5px;
+            
+        
+           
+            
+        }
                 
     """)
 
