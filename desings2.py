@@ -3,6 +3,28 @@ from PyQt5.QtWidgets import *
 
 app = QApplication([])
 
+app.setStyleSheet(
+    """
+    QPushButton:hover {
+        background-color:white;
+    }
+            QWidget {
+                background:  #FFEF00;
+            }
+            
+            QPushButton
+            {
+                background: #ECDF25;
+                font-size: 15px;
+                color: black;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+                border-radius: 5px;
+                
+            }
+                
+    """)
 
 window = QWidget()
 
