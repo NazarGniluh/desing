@@ -1,5 +1,8 @@
+from PIL import Image
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import *
-
+import os
 
 app = QApplication([])
 
@@ -54,7 +57,7 @@ mono4 = QPushButton("РІДНИЙ")
 mono5 = QPushButton("КОЛЄГА")
 mono6 = QPushButton("БАТЬКІВЩИНА")
 
-text = QTextEdit()
+text = QListWidget()
 
 
 Mon = QVBoxLayout()
@@ -77,11 +80,66 @@ Mon1.addLayout(Non)
 
 mainLine.addLayout(Mon1)
 
+def pil2pixmap(im):
+    if im.mode == "RGB":
+        r, g, b = im.split()
+        im = Image.merge("RGB", (b, g, r))
+    elif im.mode == "RGBA":
+        r, g, b, a = im.split()
+        im = Image.merge("RGBA", (b, g, r, a))
+    elif im.mode == "L":
+        im = im.convert("RGBA")
+    im2 = im.convert("RGBA")
+    data = im2.tobytes("raw", "RGBA")
+    qim = QImage(data, im.size[0], im.size[1], QImage.Format_ARGB32)
+    pixmap = QPixmap.fromImage(qim)
+    return pixmap
 
 
+class WorkPhoto:
+    def __init__(self):
+        self.image = None
+        self.folder = None
+        self.filename = None
 
+    def load(self):
+        ImagePath = os.path.join(self.folder, self.filename)
+        self.image = Image.open(ImagePath)
+
+
+    def showImage(self):
+        pixel = pil2pixmap(self.image)
+        pixel = pixel.scaled(800, 600, Qt.KeepAspectRatio)
+        windows7.setPixmap(pixel)
+
+    def rotate_clor(self):
+        self.image = self.image.transpose(Image.ROTATE_90)
+        self.showImage()
+
+
+    def rotate_clor2(self):
+        self.image = self.image.transpose(Image.ROTATE_270)
+        self.showImage()
+workwithphotos = WorkPhoto()
+
+
+def open_folder():
+    workwithphotos.folder = QFileDialog.getExistingDirectory()
+    files = os.listdir(workwithphotos.folder)
+    text.clear()
+    text.addItems(files)
+
+
+def showChosenImage():
+    workwithphotos.filename = text.currentItem().text()
+    workwithphotos.load()
+    workwithphotos.showImage()
+
+
+mono3.clicked.connect(workwithphotos.rotate_clor2)
+mono2.clicked.connect(workwithphotos.rotate_clor)
+text.currentRowChanged.connect(showChosenImage)
+mono1.clicked.connect(open_folder)
 window.setLayout(mainLine)
-
-
 window.show()
 app.exec()
