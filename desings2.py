@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import *
@@ -120,7 +120,23 @@ class WorkPhoto:
     def rotate_clor2(self):
         self.image = self.image.transpose(Image.ROTATE_270)
         self.showImage()
+
+
+    def black(self):
+        self.image = self.image.convert("L")
+        self.showImage()
+
+    def Blur(self):
+        self.image = self.image.filter(ImageFilter.BLUR)
+        self.showImage()
+
+
+    def cont(self):
+        self.image = self.image.filter(ImageFilter.UnsharpMask(radius=2, percent=150, threshold=3))
+        self.showImage()
+
 workwithphotos = WorkPhoto()
+
 
 
 def open_folder():
@@ -136,6 +152,10 @@ def showChosenImage():
     workwithphotos.showImage()
 
 
+
+mono6.clicked.connect(workwithphotos.cont)
+mono5.clicked.connect(workwithphotos.Blur)
+mono4.clicked.connect(workwithphotos.black)
 mono3.clicked.connect(workwithphotos.rotate_clor2)
 mono2.clicked.connect(workwithphotos.rotate_clor)
 text.currentRowChanged.connect(showChosenImage)
