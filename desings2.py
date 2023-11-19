@@ -1,4 +1,4 @@
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageEnhance
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import *
@@ -42,20 +42,35 @@ mainLine = QHBoxLayout()
 Non = QHBoxLayout()
 
 windows1 = QLabel("ПАПКА")
-windows2 = QLabel("АБОНЕНТ")
-windows3 = QLabel("НОМЕР")
-windows4 = QLabel("РІДНИЙ")
-windows5 = QLabel("КОЛЄГА")
-windows6 = QLabel("БАТЬКІВЩИНА")
+windows2 = QLabel("ЛІВО")
+windows3 = QLabel("ПРАВО")
+windows4 = QLabel("ЧОРНИЙ")
+windows5 = QLabel("РОЗМИТТЯ")
+windows6 = QLabel("РІЗКІСТЬ")
 windows7 = QLabel("НОМЕРОГРАМ")
+windows8 = QLabel("СТИСНЕННЯ")
+windows9 = QLabel("КОНТУР")
+windows10 = QLabel("НАСИЧЕНІСТЬ")
+windows11 = QLabel("ЗГЛАДЖУЄ")
+windows12 = QLabel("ДЕТАЛІЗАЦІЯ")
+windows13 = QLabel("РЕБЕР")
+
 
 
 mono1 = QPushButton("ПАПКА")
-mono2 = QPushButton("АБОНЕНТ")
-mono3 = QPushButton("НОМЕР")
-mono4 = QPushButton("РІДНИЙ")
-mono5 = QPushButton("КОЛЄГА")
-mono6 = QPushButton("БАТЬКІВЩИНА")
+mono2 = QPushButton("ЛІВО")
+mono3 = QPushButton("ПРАВО")
+mono4 = QPushButton("ЧОРНИЙ")
+mono5 = QPushButton("РОЗМИТТЯ")
+mono6 = QPushButton("РІЗКІСТЬ")
+mono7 = QPushButton("СТИСНЕННЯ")
+mono8 = QPushButton("КОНТУР")
+mono9 = QPushButton("НАСИЧЕНІСТЬ")
+mono10 = QPushButton("ЗГЛАДЖУЄ")
+mono11 = QPushButton("ДЕТАЛІЗАЦІЯ")
+mono12 = QPushButton("РЕБЕР")
+
+
 
 text = QListWidget()
 
@@ -75,11 +90,21 @@ Non.addWidget(mono3)
 Non.addWidget(mono4)
 Non.addWidget(mono5)
 Non.addWidget(mono6)
+Non.addWidget(mono7)
 
 Mon1.addLayout(Non)
 
 mainLine.addLayout(Mon1)
 
+NOn2 = QHBoxLayout()
+NOn2.addWidget(mono8)
+NOn2.addWidget(mono9)
+NOn2.addWidget(mono10)
+NOn2.addWidget(mono11)
+NOn2.addWidget(mono12)
+
+Mon1.addLayout(NOn2)
+mainLine.addLayout(NOn2)
 def pil2pixmap(im):
     if im.mode == "RGB":
         r, g, b = im.split()
@@ -135,6 +160,31 @@ class WorkPhoto:
         self.image = self.image.filter(ImageFilter.UnsharpMask(radius=2, percent=150, threshold=3))
         self.showImage()
 
+
+    def stis(self):
+        self.image = self.image.filter(ImageFilter.EMBOSS)
+        self.showImage()
+
+    def kontr(self):
+        self.image = self.image.filter(ImageFilter.CONTOUR)
+        self.showImage()
+
+    def Enctic(self):
+        self.image = ImageEnhance.Color(self.image).enhance(1.5)
+        self.showImage()
+
+    def Smooth(self):
+        self.image = self.image.filter(ImageFilter.SMOOTH)
+        self.showImage()
+
+    def Detail(self):
+        self.image = self.image.filter(ImageFilter.DETAIL)
+        self.showImage()
+
+    def Edge(self):
+        self.image = self.image.filter(ImageFilter.EDGE_ENHANCE)
+        self.showImage()
+
 workwithphotos = WorkPhoto()
 
 
@@ -153,6 +203,13 @@ def showChosenImage():
 
 
 
+
+mono12.clicked.connect(workwithphotos.Edge)
+mono11.clicked.connect(workwithphotos.Detail)
+mono10.clicked.connect(workwithphotos.Smooth)
+mono9.clicked.connect(workwithphotos.Enctic)
+mono8.clicked.connect(workwithphotos.kontr)
+mono7.clicked.connect(workwithphotos.stis)
 mono6.clicked.connect(workwithphotos.cont)
 mono5.clicked.connect(workwithphotos.Blur)
 mono4.clicked.connect(workwithphotos.black)
