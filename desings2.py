@@ -11,25 +11,25 @@ app.setStyleSheet(
     QPushButton:hover {
         background-color:white;
     }
-        QWidget {
-            background:rgb(255, 255, 128);
-        }
+    QWidget {
+        background:rgb(255, 255, 128);
+    }
+    
+    QPushButton
+    {
+        background-color:rgba(255, 255, 128, .5);
         
-        QPushButton
-        {
-            background-color:rgba(255, 255, 128, .5);
-            
-            font-size: 15px;
-            color: black;
-            border-style: solid;
-            border-width: 1px;
-            border-color: black;
-            border-radius: 5px;
-            
+        font-size: 15px;
+        color: black;
+        border-style: solid;
+        border-width: 1px;
+        border-color: black;
+        border-radius: 5px;
         
-           
-            
-        }
+    
+       
+        
+    }
                 
     """)
 
@@ -54,7 +54,7 @@ windows10 = QLabel("НАСИЧЕНІСТЬ")
 windows11 = QLabel("ЗГЛАДЖУЄ")
 windows12 = QLabel("ДЕТАЛІЗАЦІЯ")
 windows13 = QLabel("РЕБЕР")
-
+windows14 = QLabel("НАЗАД")
 
 
 mono1 = QPushButton("ПАПКА")
@@ -69,7 +69,7 @@ mono9 = QPushButton("НАСИЧЕНІСТЬ")
 mono10 = QPushButton("ЗГЛАДЖУЄ")
 mono11 = QPushButton("ДЕТАЛІЗАЦІЯ")
 mono12 = QPushButton("РЕБЕР")
-
+mono13 = QPushButton("НАЗАД")
 
 
 text = QListWidget()
@@ -102,6 +102,7 @@ NOn2.addWidget(mono9)
 NOn2.addWidget(mono10)
 NOn2.addWidget(mono11)
 NOn2.addWidget(mono12)
+NOn2.addWidget(mono13)
 
 Mon1.addLayout(NOn2)
 mainLine.addLayout(NOn2)
@@ -185,6 +186,13 @@ class WorkPhoto:
         self.image = self.image.filter(ImageFilter.EDGE_ENHANCE)
         self.showImage()
 
+    def reset_filters(self, factor):
+        if self.image:
+            
+            self.load()
+            self.showImage()
+
+
 workwithphotos = WorkPhoto()
 
 
@@ -203,7 +211,7 @@ def showChosenImage():
 
 
 
-
+mono13.clicked.connect(workwithphotos.reset_filters)
 mono12.clicked.connect(workwithphotos.Edge)
 mono11.clicked.connect(workwithphotos.Detail)
 mono10.clicked.connect(workwithphotos.Smooth)
